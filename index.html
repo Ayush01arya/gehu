@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Verification with Login</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #4D3CBE;
+        }
+
+        input[type="email"],
+        input[type="text"] {
+            width: calc(100% - 30px);
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: border-color 0.3s;
+            font-size: 16px;
+        }
+
+        input:focus {
+            border-color: #4D3CBE;
+            outline: none;
+        }
+
+        button {
+            width: 48%;
+            padding: 10px;
+            background-color: #4D3CBE;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 16px;
+            margin-top: 10px;
+            display: inline-block; /* Align buttons horizontally */
+        }
+
+        button:disabled {
+            background-color: #ccc;
+        }
+
+        button:hover:not(:disabled) {
+            background-color: #3e319c;
+        }
+
+        .message {
+            margin: 10px 0;
+            color: red;
+            font-size: 14px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .welcome-message {
+            margin-top: 20px;
+            font-size: 18px;
+            color: green;
+        }
+
+        .timer {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #4D3CBE;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            button {
+                font-size: 14px;
+            }
+
+            input[type="email"],
+            input[type="text"] {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2 id="otpHeading">OTP Verification</h2>
+        <div id="message" class="message"></div>
+        <input type="email" id="email" placeholder="Enter your email" required>
+        <button id="sendOtpBtn" onclick="sendOTP()">Send OTP</button>
+
+        <div id="otpSection" class="hidden">
+            <input type="text" id="otp" placeholder="Enter OTP" required>
+            <div>
+                <button id="verifyBtn" onclick="verifyOTP()">Verify OTP</button>
+                <button id="resendOtpBtn" class="hidden" onclick="resendOTP()" disabled>Resend OTP</button>
+            </div>
+            <div id="timer" class="timer hidden"></div>
+        </div>
+
+        <div id="welcomeMessage" class="hidden welcome-message">
+            Welcome! Your secret message is:<br> <strong>Stay safe and happy!</strong>
+            <br>
+            <button id="logoutBtn" class="hidden" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <script>
+        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+        if (isLoggedIn) {
+            document.getElementById("otpHeading").classList.add("hidden");
+            document.getElementById("email").classList.add("hidden");
+            document.getElementById("sendOtpBtn").classList.add("hidden");
+            document.getElementById("welcomeMessage").classList.remove("hidden");
+            document.getElementById("logoutBtn").classList.remove("hidden");
+        }
+
+        async function sendOTP() {
+            const email = document.getElementById("email").value;
+            const messageElement = document.getElementById("message");
+
+            if (!email) {
+                messageElement.textContent = "Please enter your email.";
+                messageElement.style.color = "red";
+                return;
+            }
+
+            try {
+                const response = await fetch("http://127.0.0.1:5000/send-otp", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email }),
+                    credentials: 'include'
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    messageElement.textContent = "OTP sent to your email!";
+                    messageElement.style.color = "green";
+                    document.getElementById("otpSection").classList.remove("hidden");
+                    document.getElementById("sendOtpBtn").disabled = true;
+
+                    // Hide email input and send OTP button
+                    document.getElementById("email").classList.add("hidden");
+                    document.getElementById("sendOtpBtn").classList.add("hidden");
+
+                    // Show the resend OTP button
+                    document.getElementById("resendOtpBtn").classList.remove("hidden");
+
+                    // Start the timer for resend OTP
+                    startTimer();
+                } else {
+                    messageElement.textContent = result.error;
+                    messageElement.style.color = "red";
+                }
+            } catch (error) {
+                console.error("Network error:", error);
+                messageElement.textContent = "Network error. Please try again.";
+                messageElement.style.color = "red";
+            }
+        }
+
+        async function verifyOTP() {
+            const userOtp = document.getElementById('otp').value;
+            const email = document.getElementById('email').value;
+            const messageElement = document.getElementById("message");
+            const otpSection = document.getElementById("otpSection");
+            const heading = document.getElementById("otpHeading");
+            const welcomeMessage = document.getElementById("welcomeMessage");
+            const logoutBtn = document.getElementById("logoutBtn");
+
+            if (!userOtp) {
+                messageElement.textContent = "Please enter the OTP.";
+                messageElement.style.color = "red";
+                return;
+            }
+
+            try {
+                const response = await fetch("http://127.0.0.1:5000/verify-otp", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ otp: userOtp, email }),
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    localStorage.setItem("isLoggedIn", "true");
+                    otpSection.classList.add("hidden");
+                    heading.classList.add("hidden");
+                    welcomeMessage.classList.remove("hidden");
+                    logoutBtn.classList.remove("hidden");
+                    messageElement.textContent = ""; // Clear previous messages
+                } else {
+                    otpSection.classList.add("hidden");
+                    heading.classList.add("hidden");
+                    messageElement.textContent = "Invalid OTP. Please try again."; // Show failure message
+                    messageElement.style.color = "red";
+                    welcomeMessage.classList.add("hidden"); // Ensure welcome message is hidden
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                messageElement.textContent = "An error occurred during verification. Please try again later.";
+                messageElement.style.color = "red";
+                welcomeMessage.classList.add("hidden"); // Ensure welcome message is hidden
+            }
+        }
+
+        async function resendOTP() {
+            const email = document.getElementById("email").value;
+            const messageElement = document.getElementById("message");
+
+            if (!email) {
+                messageElement.textContent = "Please enter your email.";
+                messageElement.style.color = "red";
+                return;
+            }
+
+            try {
+                const response = await fetch("http://127.0.0.1:5000/send-otp", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email }),
+                    credentials: 'include'
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    messageElement.textContent = "OTP sent to your email again!";
+                    messageElement.style.color = "green";
+                    startTimer(); // Restart the timer when OTP is resent
+                } else {
+                    messageElement.textContent = result.error;
+                    messageElement.style.color = "red";
+                }
+            } catch (error) {
+                console.error("Network error:", error);
+                messageElement.textContent = "Network error. Please try again.";
+                messageElement.style.color = "red";
+            }
+        }
+
+        function startTimer() {
+            let timeLeft = 25;
+            const timerElement = document.getElementById("timer");
+            timerElement.classList.remove("hidden");
+            timerElement.textContent = `You can resend OTP in ${timeLeft} seconds.`;
+
+            const countdown = setInterval(() => {
+                timeLeft--;
+                timerElement.textContent = `You can resend OTP in ${timeLeft} seconds.`;
+
+                if (timeLeft <= 0) {
+                    clearInterval(countdown);
+                    timerElement.classList.add("hidden");
+                    document.getElementById("resendOtpBtn").disabled = false; // Enable resend button
+                }
+            }, 1000);
+        }
+
+        function logout() {
+            localStorage.removeItem("isLoggedIn");
+            document.getElementById("otpHeading").classList.remove("hidden");
+            document.getElementById("email").classList.remove("hidden");
+            document.getElementById("sendOtpBtn").classList.remove("hidden");
+            document.getElementById("otpSection").classList.add("hidden");
+            document.getElementById("welcomeMessage").classList.add("hidden");
+            document.getElementById("resendOtpBtn").classList.add("hidden");
+            document.getElementById("timer").classList.add("hidden");
+            document.getElementById("message").textContent = ""; // Clear messages
+        }
+    </script>
+
+</body>
+
+</html>
