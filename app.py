@@ -166,22 +166,24 @@ def send_email_hr(gmail_user, app_password, to_email, company_name, hr_name):
         </div>
 
         <!-- Content Section -->
-        <div class="content">
-            <p>Dear <span class="highlight">{hr_name}</span>,</p>
+      <div class="content">
+    <p>Dear <span class="highlight">{hr_name}</span>,</p>
 
-            <p>I hope you’re well. My name is Ayush Arya, and I am currently pursuing a Bachelor’s in Computer Science and Engineering with a focus on Machine Learning at Graphic Era Hill University. I am reaching out to inquire about potential internship opportunities within <span class="highlight">{company_name}</span>’s data and AI teams, as I am very interested in contributing to your innovative work.</p>
+    <p>I hope this message finds you well. My name is Ayush Arya, and I am currently pursuing a Bachelor’s degree in Computer Science and Engineering with a specialization in Machine Learning at Graphic Era Hill University. I am writing to express my interest in potential job openings within <span class="highlight">{company_name}</span>, particularly in your innovative data and AI teams.</p>
 
-            <p>In my recent role as an AI Application Intern at Astroverse Pvt Ltd, I developed a chatbot that improved customer support response speed by 20% and increased engagement by 30%. Additionally, my internship with IIT BHU allowed me to enhance language translation tools, making them more accessible for research workflows.</p>
+    <p>During my tenure as an AI Application Intern at Astroverse Pvt Ltd, I developed a chatbot that enhanced customer support response times by 20% and boosted user engagement by 30%. In addition, I worked on the PDF2Chat application, utilizing large language models and the LangChain framework to create a solution that effectively converted PDF documents into interactive chat experiences. This project allowed me to deepen my understanding of natural language processing and its practical applications in real-world scenarios.</p>
 
-            <p>With skills in Python, SQL, TensorFlow, and frameworks like Flask and React, I am eager to bring my experience in AI and data analysis to <span class="highlight">{company_name}</span>. I would appreciate the opportunity to discuss how I could add value to your team.</p>
+    <p>My experiences, along with my proficiency in Python, SQL, TensorFlow, and frameworks such as Flask and React, have equipped me to make a meaningful contribution to <span class="highlight">{company_name}</span>. I am particularly drawn to your commitment to innovation and excellence, and I believe my background in developing AI solutions aligns well with your team’s goals. I am excited about the possibility of contributing to impactful projects that shape the future of technology.</p>
 
-            <a href="mailto:ayusharya.personal@gmail.com" class="cta-button">Let’s Connect</a>
+    <a href="mailto:ayusharya.personal@gmail.com" class="cta-button">Let’s Connect</a>
+    
+    <p>Thank you very much for your time and consideration. I look forward to the opportunity to discuss how my skills and experiences can contribute to the success of your team.</p>
 
-            <p>Thank you very much for your time and consideration. I look forward to hearing from you.</p>
+    <p>Warm regards,<br>
+    Ayush Arya</p>
+</div>
 
-            <p>Warm regards,<br>
-            Ayush Arya</p>
-        </div>
+
 
         <!-- Footer Section -->
         <div class="footer">
