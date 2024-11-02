@@ -62,6 +62,13 @@ def send_email_hr(gmail_user, app_password, to_email, company_name, hr_name):
             color: #ffffff;
             padding: 30px;
             text-align: center;
+            background-image: url('https://ayusharya.me/assets/header.png'); 
+           background-size: cover; 
+           background-repeat: no-repeat; 
+           background-position: center; 
+           padding: 30px; 
+           text-align: center; 
+           
         }}
         .header h1 {{
             font-size: 24px;
@@ -166,22 +173,23 @@ def send_email_hr(gmail_user, app_password, to_email, company_name, hr_name):
         </div>
 
         <!-- Content Section -->
-      <div class="content">
+     <div class="content">
     <p>Dear <span class="highlight">{hr_name}</span>,</p>
 
-    <p>I hope this message finds you well. My name is Ayush Arya, and I am currently pursuing a Bachelor’s degree in Computer Science and Engineering with a specialization in Machine Learning at Graphic Era Hill University. I am writing to express my interest in potential job openings within <span class="highlight">{company_name}</span>, particularly in your innovative data and AI teams.</p>
+    <p>I hope this message finds you well. My name is Ayush Arya, and I am pursuing a Bachelor's degree in Computer Science and Engineering with a specialization in Machine Learning at Graphic Era Hill University. I am reaching out to express my keen interest in opportunities within <span class="highlight">{company_name}</span>, particularly in your innovative data and AI/ML teams.</p>
 
-    <p>During my tenure as an AI Application Intern at Astroverse Pvt Ltd, I developed a chatbot that enhanced customer support response times by 20% and boosted user engagement by 30%. In addition, I worked on the PDF2Chat application, utilizing large language models and the LangChain framework to create a solution that effectively converted PDF documents into interactive chat experiences. This project allowed me to deepen my understanding of natural language processing and its practical applications in real-world scenarios.</p>
+<p>As an AI/ML Intern at Astroverse Pvt Ltd, I led the development of a chatbot that improved customer support efficiency by 20% and significantly increased user engagement. I also created the PDF2Chat application, utilizing advanced language models and the LangChain framework to transform PDF documents into dynamic, interactive chat experiences. This experience deepened my technical expertise in natural language processing and strengthened my understanding of user-centric AI solutions.</p>
 
-    <p>My experiences, along with my proficiency in Python, SQL, TensorFlow, and frameworks such as Flask and React, have equipped me to make a meaningful contribution to <span class="highlight">{company_name}</span>. I am particularly drawn to your commitment to innovation and excellence, and I believe my background in developing AI solutions aligns well with your team’s goals. I am excited about the possibility of contributing to impactful projects that shape the future of technology.</p>
+<p>My skills in Python, SQL, TensorFlow, Flask, and React position me well to contribute to Astroverse Pvt Ltd’s cutting-edge projects. I admire your commitment to leveraging technology for impactful solutions and am excited about the prospect of joining a team at the forefront of innovation.</p>
 
-    <a href="mailto:ayusharya.personal@gmail.com" class="cta-button">Let’s Connect</a>
-    
-    <p>Thank you very much for your time and consideration. I look forward to the opportunity to discuss how my skills and experiences can contribute to the success of your team.</p>
+<p>I would greatly appreciate the opportunity to discuss how my background and skills align with  <span class="highlight">{company_name}</span>  goals . Could we schedule a brief call at your convenience ?</p>
 
-    <p>Warm regards,<br>
-    Ayush Arya</p>
+<p>Thank you very much for your time and consideration</p>
+
+<p>Warm regards,<br>
+Ayush Arya<br>
 </div>
+
 
 
 
