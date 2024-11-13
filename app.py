@@ -32,7 +32,7 @@ def send_email_hr(gmail_user, app_password, to_email, company_name, hr_name):
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exploring Opportunities at {company_name}")</title>
+    <title> Interest in AI/ML Opportunities at {company_name}")</title>
     <style>
         /* General Reset */
         * {{
@@ -62,13 +62,13 @@ def send_email_hr(gmail_user, app_password, to_email, company_name, hr_name):
             color: #ffffff;
             padding: 30px;
             text-align: center;
-            background-image: url('https://ayusharya.me/assets/header.png'); 
-           background-size: cover; 
-           background-repeat: no-repeat; 
-           background-position: center; 
-           padding: 30px; 
-           text-align: center; 
-           
+            background-image: url('https://ayusharya.me/assets/header.png');
+           background-size: cover;
+           background-repeat: no-repeat;
+           background-position: center;
+           padding: 30px;
+           text-align: center;
+
         }}
         .header h1 {{
             font-size: 24px;
@@ -168,7 +168,7 @@ def send_email_hr(gmail_user, app_password, to_email, company_name, hr_name):
     <div class="email-container">
         <!-- Header Section -->
         <div class="header">
-            <h1>Exploring Opportunities at {company_name}</h1>
+            <h1> Interest in AI/ML Opportunities at {company_name}</h1>
             <p>An Enthusiastic Candidate Ready to Make an Impact</p>
         </div>
 
@@ -180,7 +180,7 @@ def send_email_hr(gmail_user, app_password, to_email, company_name, hr_name):
 
 <p>As an AI/ML Intern at Astroverse Pvt Ltd, I led the development of a chatbot that improved customer support efficiency by 20% and significantly increased user engagement. I also created the PDF2Chat application, utilizing advanced language models and the LangChain framework to transform PDF documents into dynamic, interactive chat experiences. This experience deepened my technical expertise in natural language processing and strengthened my understanding of user-centric AI solutions.</p>
 
-<p>My skills in Python, SQL, TensorFlow, Flask, and React position me well to contribute to Astroverse Pvt Ltd’s cutting-edge projects. I admire your commitment to leveraging technology for impactful solutions and am excited about the prospect of joining a team at the forefront of innovation.</p>
+<p>My skills in Python, SQL, TensorFlow, NLP,Flask, and React position me well to contribute to  <span class="highlight">{company_name}</span> cutting-edge projects. I admire your commitment to leveraging technology for impactful solutions and am excited about the prospect of joining a team at the forefront of innovation.</p>
 
 <p>I would greatly appreciate the opportunity to discuss how my background and skills align with  <span class="highlight">{company_name}</span>  goals . Could we schedule a brief call at your convenience ?</p>
 
@@ -198,14 +198,14 @@ Ayush Arya<br>
             <p>
                 <a href="https://ayusharya.me">
                     <img src="https://img.icons8.com/ios-filled/50/domain.png" class="icon" alt="Website">Website
-                </a> | 
+                </a> |
                 <a href="tel:+918081133775">
                     <img src="https://img.icons8.com/ios-filled/50/000000/phone.png" class="icon" alt="Phone">+91-8081133775
-                </a> | 
+                </a> |
                 <a href="https://linkedin.com/in/ayusharya25">
                     <img src="https://img.icons8.com/ios-filled/50/000000/linkedin.png" class="icon" alt="LinkedIn">LinkedIn
                 </a>
-                </a> | 
+                </a> |
 
             </p>
         </div>
