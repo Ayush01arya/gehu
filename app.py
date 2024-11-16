@@ -19,14 +19,14 @@ APP_PASSWORD = "mbsj lsll aphf dqto"  # Replace with your actual app password
 otp_store = {}
 
 
-def send_email_hr(gmail_user, app_password, to_email, company_name, hr_name):
+def send_email_hr(gmail_user, app_password, to_email, company_name, hr_name,specific_role):
     # Set up the SMTP server
     smtp_server = "smtp.gmail.com"
     smtp_port = 587
 
     # Create the email
-    subject = "Exploring Opportunities at {}".format(company_name)
-    message_body = f"""
+    subject = " Interest in {} Opportunities at {}".format(specific_role,company_name)
+    message_body =f"""
   <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -168,7 +168,7 @@ def send_email_hr(gmail_user, app_password, to_email, company_name, hr_name):
     <div class="email-container">
         <!-- Header Section -->
         <div class="header">
-            <h1> Interest in AI/ML Opportunities at {company_name}</h1>
+            <h1> Application for a Role in Your Esteemed Organization</h1>
             <p>An Enthusiastic Candidate Ready to Make an Impact</p>
         </div>
 
@@ -176,15 +176,13 @@ def send_email_hr(gmail_user, app_password, to_email, company_name, hr_name):
      <div class="content">
     <p>Dear <span class="highlight">{hr_name}</span>,</p>
 
-    <p>I hope this message finds you well. My name is Ayush Arya, and I am pursuing a Bachelor's degree in Computer Science and Engineering with a specialization in Machine Learning at Graphic Era Hill University. I am reaching out to express my keen interest in opportunities within <span class="highlight">{company_name}</span>, particularly in your innovative data and AI/ML teams.</p>
+     <p>I hope you are doing well. I am Ayush Arya, a final-year B.Tech student in Computer Science and Engineering with a focus on Machine Learning at Graphic Era Hill University. I am excited to express my interest in joining your esteemed organization as a <span class="highlight">{specific_role}</span>.</p>
 
-<p>As an AI/ML Intern at Astroverse Pvt Ltd, I led the development of a chatbot that improved customer support efficiency by 20% and significantly increased user engagement. I also created the PDF2Chat application, utilizing advanced language models and the LangChain framework to transform PDF documents into dynamic, interactive chat experiences. This experience deepened my technical expertise in natural language processing and strengthened my understanding of user-centric AI solutions.</p>
+        <p>Through internships at Astroverse Pvt Ltd and IIT BHU, I developed practical experience in AI, software development, and collaboration. My projects, including Movie Mate and PDF2Chat, reflect my ability to create innovative and impactful solutions.</p>
 
-<p>My skills in Python, SQL, TensorFlow, NLP,Flask, and React position me well to contribute to  <span class="highlight">{company_name}</span> cutting-edge projects. I admire your commitment to leveraging technology for impactful solutions and am excited about the prospect of joining a team at the forefront of innovation.</p>
+        <p>I am eager to bring my technical skills, problem-solving approach, and enthusiasm for learning to your team. Please find my resume attached for your reference. I look forward to discussing how I can contribute to your organization.</p>
 
-<p>I would greatly appreciate the opportunity to discuss how my background and skills align with  <span class="highlight">{company_name}</span>  goals . Could we schedule a brief call at your convenience ?</p>
-
-<p>Thank you very much for your time and consideration</p>
+        <p>Thank you for considering my application.</p>
 
 <p>Warm regards,<br>
 Ayush Arya<br>
@@ -212,7 +210,6 @@ Ayush Arya<br>
     </div>
 </body>
 </html>"""
-
     msg = MIMEMultipart()
     msg["From"] = gmail_user
     msg["To"] = to_email
@@ -240,8 +237,9 @@ def api_send_email():
     to_email = data.get("to_email")
     company_name = data.get("company_name")
     hr_name = data.get("hr_name")
+    specific_role = data.get("specific_role")
 
-    result = send_email_hr(gmail_user, app_password, to_email, company_name, hr_name)
+    result = send_email_hr(gmail_user, app_password, to_email, company_name, hr_name,specific_role)
     return jsonify({"message": result})
 
 def send_email(to_email, otp):
